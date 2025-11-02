@@ -5,36 +5,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeqTrend - Coming Soon</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #1a1a2e;
-            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            margin: 0;
+            color: white;
         }
         
-        .content {
+        .container {
             text-align: center;
+            padding: 40px;
+            max-width: 600px;
         }
         
-        h1 {
+        .logo {
             font-size: 4rem;
+            font-weight: 700;
             margin-bottom: 20px;
+            letter-spacing: -2px;
         }
         
-        p {
+        .tagline {
             font-size: 1.5rem;
-            opacity: 0.7;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .submit-btn {
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(255,255,255,0.2);
+            display: block;
+        }
+        
+        .message.error {
+            background: rgba(255,0,0,0.2);
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        <h1>🧬 SeqTrend</h1>
-        <p>Coming Soon</p>
+    <div class="container">
+        <div class="logo">🧬 SeqTrend</div>
+        <div class="tagline">Discover breakthrough targets before they trend</div>
+        <div class="description">
+            The intelligence platform for biotech researchers and investors. 
+            Spot hidden gems in protein and gene research before everyone else does.
+        </div>
+        
+        <form class="email-form" id="emailForm">
+            <input 
+                type="email" 
+                class="email-input" 
+                id="emailInput"
+                placeholder="Enter your email"
+                required
+            >
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Get Early Access
+            </button>
+        </form>
+        
+        <div class="message" id="message"></div>
     </div>
+    
+    <script>
+        const form = document.getElementById('emailForm');
+        const emailInput = document.getElementById('emailInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const message = document.getElementById('message');
+        
+        // REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxWxei1lR0BP142noijq0iAg3s-KhCsUTVITpZ4bH3bYjKORCtks_Lu4MC4HARUnlLg/exec';
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = emailInput.value;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const formData = new FormData();
+                formData.append('email', email);
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                message.textContent = '✅ Thanks! We\'ll notify you when we launch.';
+                message.className = 'message success';
+                emailInput.value = '';
+                
+            } catch (error) {
+                message.textContent = '❌ Oops! Something went wrong. Please try again.';
+                message.className = 'message error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Get Early Access';
+            }
+        });
+    </script>
 </body>
 </html>
