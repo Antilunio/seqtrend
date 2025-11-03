@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SeqTrend - Coming Soon</title>
+    <title>SeqTrend - Discover Breakthrough Targets Before They Trend</title>
     <style>
         * {
             margin: 0;
@@ -12,72 +12,124 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #1a1a2e;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .container {
-            text-align: center;
-            padding: 40px;
-            max-width: 600px;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-        
-        .tagline {
             font-size: 1.5rem;
-            margin-bottom: 20px;
-            opacity: 0.9;
+            font-weight: 700;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .description {
-            font-size: 1.1rem;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 180px 40px 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
             margin-bottom: 40px;
-            opacity: 0.8;
-            line-height: 1.6;
+            opacity: 0.95;
+            font-weight: 300;
         }
         
         .email-form {
             display: flex;
             gap: 10px;
             max-width: 500px;
-            margin: 0 auto;
+            margin: 0 auto 20px;
         }
         
         .email-input {
             flex: 1;
-            padding: 15px 20px;
+            padding: 18px 25px;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             font-size: 1rem;
             outline: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
         .submit-btn {
-            padding: 15px 30px;
-            background: white;
-            color: #667eea;
+            padding: 18px 35px;
+            background: #1a1a2e;
+            color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            white-space: nowrap;
         }
         
         .submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
         
         .submit-btn:disabled {
@@ -86,98 +138,455 @@
         }
         
         .message {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 10px;
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 30px;
             display: none;
+            font-size: 0.95rem;
         }
         
         .message.success {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.25);
             display: block;
         }
         
-        .message.error {
-            background: rgba(255,0,0,0.2);
-            display: block;
+        /* Sections */
+        section {
+            padding: 100px 40px;
         }
-
-        @media (max-width: 600px) {
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* What Section */
+        .what-section {
+            background: #f8f9fa;
+        }
+        
+        .what-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: #444;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        /* Who Section */
+        .personas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .persona-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .persona-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        
+        .persona-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .persona-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .persona-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .features-section .section-title,
+        .features-section .section-subtitle {
+            color: white;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section .section-title {
+            color: white;
+        }
+        
+        .cta-section .email-form {
+            margin: 40px auto 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f0f1e;
+            color: white;
+            padding: 60px 40px 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .footer-text {
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: #555;
+            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 140px 20px 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
             .email-form {
                 flex-direction: column;
             }
             
-            .logo {
-                font-size: 3rem;
+            section {
+                padding: 60px 20px;
             }
             
-            .tagline {
-                font-size: 1.2rem;
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .personas,
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            nav .container {
+                padding: 0 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🧬 SeqTrend</div>
-        <div class="tagline">Discover breakthrough targets before they trend</div>
-        <div class="description">
-            The intelligence platform for biotech researchers and investors. 
-            Spot hidden gems in protein and gene research before everyone else does.
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <span>🧬</span>
+                <span>SeqTrend</span>
+            </div>
         </div>
-        
-        <form class="email-form" id="emailForm">
-            <input 
-                type="email" 
-                class="email-input" 
-                id="emailInput"
-                placeholder="Enter your email"
-                required
-            >
-            <button type="submit" class="submit-btn" id="submitBtn">
-                I am interested
-            </button>
-        </form>
-        
-        <div class="message" id="message"></div>
-    </div>
-    
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Track Emerging Targets in Biopharma Research</h1>
+            <p class="subtitle">
+                Make better research and investment decisions. Identify promising protein and gene targets before they become mainstream.
+            </p>
+            
+            <form class="email-form" id="emailForm">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    id="emailInput"
+                    placeholder="Enter your email"
+                    required
+                >
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    I'm Interested
+                </button>
+            </form>
+            
+            <div class="message" id="message"></div>
+        </div>
+    </section>
+
+    <!-- What Section -->
+    <section class="what-section">
+        <div class="container">
+            <h2 class="section-title">What is SeqTrend?</h2>
+            <div class="what-content">
+                <p>
+                    SeqTrend aggregates and analyzes data from <span class="highlight">hundreds of scientific sources</span> — validated by expert opinion globally — to help you identify <span class="highlight">emerging protein and gene targets</span> with real potential.
+                </p>
+                <br>
+                <p>
+                    Whether you're directing research, evaluating investments, or exploring new therapeutic areas, SeqTrend shows you <span class="highlight">what's gaining momentum</span> and what's already too crowded.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Who is SeqTrend for?</h2>
+            <p class="section-subtitle">
+                Built for professionals who need to stay ahead in biotech innovation
+            </p>
+            
+            <div class="personas">
+                <div class="persona-card">
+                    <div class="persona-icon">🔬</div>
+                    <h3>Academic Researchers</h3>
+                    <p>
+                        PIs, postdocs, and senior researchers seeking new research directions, collaboration opportunities, and grant-worthy targets.
+                    </p>
+                </div>
+                
+                <div class="persona-card">
+                    <div class="persona-icon">🧪</div>
+                    <h3>Life Science Professionals</h3>
+                    <p>
+                        Scientists and R&D teams in biotech and pharma tracking target validation, competitive landscapes, and emerging modalities.
+                    </p>
+                </div>
+                
+                <div class="persona-card">
+                    <div class="persona-icon">💼</div>
+                    <h3>Investors & Decision Makers</h3>
+                    <p>
+                        VCs, pharma executives, and BD teams evaluating investment opportunities and partnership targets in biopharma.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Identify Emerging Targets, Avoid Saturated Areas</h2>
+            <p class="section-subtitle">
+                Multi-source analysis to show you what's gaining momentum and what's already too competitive
+            </p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Early Detection</h3>
+                    <p>Identify targets in the "emerging" phase before they hit mainstream attention and valuations skyrocket.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Multi-Source Analysis</h3>
+                    <p>Aggregate data from PubMed, clinical trials, patents, expert opinions, and biotech news in one place.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Trend Maturity Stages</h3>
+                    <p>Know if a target is emerging (opportunity) or established (crowded) with our maturity classification system.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Get notified when specific proteins or genes show acceleration in research activity or clinical progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title">Be the First to Know</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">
+                Join researchers and investors who want early access to SeqTrend
+            </p>
+            
+            <form class="email-form" id="emailForm2">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    id="emailInput2"
+                    placeholder="Enter your email"
+                    required
+                >
+                <button type="submit" class="submit-btn" id="submitBtn2">
+                    I'm Interested
+                </button>
+            </form>
+            
+            <div class="message" id="message2"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>🧬</span>
+                <span>SeqTrend</span>
+            </div>
+            <p class="footer-text">
+                Intelligence platform for breakthrough target discovery
+            </p>
+            <div class="footer-links">
+                <a href="mailto:hello@seqtrend.com">Contact</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Privacy</a>
+            </div>
+            <p class="copyright">
+                © 2024 SeqTrend. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
     <script>
-        const form = document.getElementById('emailForm');
-        const emailInput = document.getElementById('emailInput');
-        const submitBtn = document.getElementById('submitBtn');
-        const message = document.getElementById('message');
-        
         // REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxWxei1lR0BP142noijq0iAg3s-KhCsUTVITpZ4bH3bYjKORCtks_Lu4MC4HARUnlLg/exec';
+        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
         
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = emailInput.value;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
-            
-            try {
-                const formData = new FormData();
-                formData.append('email', email);
+        // Handle both forms
+        const forms = [
+            { form: document.getElementById('emailForm'), input: document.getElementById('emailInput'), btn: document.getElementById('submitBtn'), msg: document.getElementById('message') },
+            { form: document.getElementById('emailForm2'), input: document.getElementById('emailInput2'), btn: document.getElementById('submitBtn2'), msg: document.getElementById('message2') }
+        ];
+        
+        forms.forEach(({ form, input, btn, msg }) => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData
-                });
+                const email = input.value;
+                btn.disabled = true;
+                btn.textContent = 'Submitting...';
                 
-                message.textContent = '✅ Thanks! We\'ll notify you when we launch.';
-                message.className = 'message success';
-                emailInput.value = '';
-                
-            } catch (error) {
-                message.textContent = '❌ Oops! Something went wrong. Please try again.';
-                message.className = 'message error';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Get Early Access';
-            }
+                try {
+                    const formData = new FormData();
+                    formData.append('email', email);
+                    
+                    await fetch(scriptURL, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    msg.textContent = '✅ Thanks! We\'ll notify you when we launch.';
+                    msg.className = 'message success';
+                    input.value = '';
+                    
+                } catch (error) {
+                    msg.textContent = '❌ Something went wrong. Please try again.';
+                    msg.className = 'message error';
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'I\'m Interested';
+                }
+            });
         });
     </script>
 </body>
