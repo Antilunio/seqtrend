@@ -220,8 +220,10 @@
         }
         
         .persona-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            object-fit: contain;
         }
         
         .persona-card h3 {
@@ -258,8 +260,10 @@
         }
         
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            object-fit: contain;
             opacity: 0.9;
         }
         
@@ -549,10 +553,8 @@
     </footer>
 
     <script>
-        // REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxpBzubf6vS-W-K6mhvK0KsuY8CYTePZz8IH5R7EnsYYNhleVwiFk3WaPCA_8KVq5XW/exec';
         
-        // Handle both forms
         const forms = [
             { form: document.getElementById('emailForm'), input: document.getElementById('emailInput'), btn: document.getElementById('submitBtn'), msg: document.getElementById('message') },
             { form: document.getElementById('emailForm2'), input: document.getElementById('emailInput2'), btn: document.getElementById('submitBtn2'), msg: document.getElementById('message2') }
