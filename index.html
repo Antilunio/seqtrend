@@ -220,8 +220,10 @@
         }
         
         .persona-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            object-fit: contain;
         }
         
         .persona-card h3 {
@@ -258,8 +260,10 @@
         }
         
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            object-fit: contain;
             opacity: 0.9;
         }
         
@@ -440,7 +444,7 @@
             
             <div class="personas">
                 <div class="persona-card">
-                    <img src="public/images/icons/microscope.svg" alt="Researcher" class="persona-icon">
+                    <img src="/images/icons/microscope.svg" alt="Researcher" class="persona-icon">
                     <h3>Academic Researchers</h3>
                     <p>
                         PIs, postdocs, and senior researchers seeking new research directions, collaboration opportunities, and grant-worthy targets.
@@ -448,7 +452,7 @@
                 </div>
                 
                 <div class="persona-card">
-                    <img src="public/images/icons/scientist.svg" alt="Professional" class="persona-icon">
+                    <img src="/images/icons/scientist.svg" alt="Professional" class="persona-icon">
                     <h3>Life Science Professionals</h3>
                     <p>
                         Scientists and R&D teams in biotech and pharma tracking target validation, competitive landscapes, and emerging modalities.
@@ -456,7 +460,7 @@
                 </div>
                 
                 <div class="persona-card">
-                    <img src="public/images/icons/investor.svg" alt="Investor" class="persona-icon">
+                    <img src="/images/icons/investor.svg" alt="Investor" class="persona-icon">
                     <h3>Investors & Decision Makers</h3>
                     <p>
                         VCs, pharma executives, and BD teams evaluating investment opportunities and partnership targets in biopharma.
@@ -476,25 +480,25 @@
             
             <div class="features">
                 <div class="feature">
-                    <img src="public/images/icons/seedling.svg" alt="Detection" class="feature-icon">
+                    <img src="/images/icons/seedling.svg" alt="Detection" class="feature-icon">
                     <h3>Early Detection</h3>
                     <p>Identify targets in the "emerging" phase before they hit mainstream attention and valuations skyrocket.</p>
                 </div>
                 
                 <div class="feature">
-                    <img src="public/images/icons/chart.svg" alt="Analysis" class="feature-icon">
+                    <img src="/images/icons/chart.svg" alt="Analysis" class="feature-icon">
                     <h3>Multi-Source Analysis</h3>
                     <p>Aggregate data from PubMed, clinical trials, patents, expert opinions, and biotech news in one place.</p>
                 </div>
                 
                 <div class="feature">
-                    <img src="public/images/icons/target.svg" alt="Targets" class="feature-icon">
+                    <img src="/images/icons/target.svg" alt="Targets" class="feature-icon">
                     <h3>Trend Maturity Stages</h3>
                     <p>Know if a target is emerging (opportunity) or established (crowded) with our maturity classification system.</p>
                 </div>
                 
                 <div class="feature">
-                    <img src="public/images/icons/bell.svg" alt="Alerts" class="feature-icon">
+                    <img src="/images/icons/bell.svg" alt="Alerts" class="feature-icon">
                     <h3>Smart Alerts</h3>
                     <p>Get notified when specific proteins or genes show acceleration in research activity or clinical progress.</p>
                 </div>
@@ -549,10 +553,8 @@
     </footer>
 
     <script>
-        // REPLACE WITH YOUR GOOGLE APPS SCRIPT URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxpBzubf6vS-W-K6mhvK0KsuY8CYTePZz8IH5R7EnsYYNhleVwiFk3WaPCA_8KVq5XW/exec';
         
-        // Handle both forms
         const forms = [
             { form: document.getElementById('emailForm'), input: document.getElementById('emailInput'), btn: document.getElementById('submitBtn'), msg: document.getElementById('message') },
             { form: document.getElementById('emailForm2'), input: document.getElementById('emailInput2'), btn: document.getElementById('submitBtn2'), msg: document.getElementById('message2') }
