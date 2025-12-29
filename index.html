@@ -3,62 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SeqTrend - Discover Breakthrough Targets Before They Trend</title>
-    <link rel="icon" href="public/images/icons/dna-logo.svg" type="image/svg+xml">
+    <title>SeqTrend — Charting Life Science Targets</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Bioicus Color Palette */
+            --navy: #0A2540;
+            --navy-light: #1A3A5C;
+            --cyan: #00CCFF;
+            --gold: #F5A623;
+            --moss: #4A7C59;
+            --cream: #F8F6F0;
+            --white: #FFFFFF;
+            --text-primary: #0A2540;
+            --text-secondary: #5A6E7F;
+            --text-light: rgba(255,255,255,0.85);
+            
+            /* Maturity stage colors */
+            --invisible: #94A3B8;
+            --emerging: #10B981;
+            --hot: #F59E0B;
+            --crowded: #EF4444;
+            --obsolete: #6B7280;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            color: #1a1a2e;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
             line-height: 1.6;
+            background: var(--cream);
             overflow-x: hidden;
         }
-        
-        /* Navigation */
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            background: var(--navy);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
         }
-        
-        nav .container {
-            max-width: 1200px;
+
+        .nav-container {
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.75rem;
+            text-decoration: none;
         }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: white;
-            padding: 180px 40px 120px;
-            text-align: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-cta {
+            background: var(--cyan);
+            color: var(--navy) !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,204,255,0.4);
+            background: white;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(165deg, var(--navy) 0%, var(--navy-light) 100%);
             position: relative;
+            display: flex;
+            align-items: center;
             overflow: hidden;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -66,528 +132,963 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>') repeat;
-            animation: float 20s linear infinite;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0,204,255,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(74,124,89,0.1) 0%, transparent 50%);
         }
-        
-        @keyframes float {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100px); }
+
+        /* DNA helix animation */
+        .dna-pattern {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40%;
+            height: 120%;
+            opacity: 0.15;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 400'%3E%3Cpath d='M50 0 Q80 50 50 100 Q20 150 50 200 Q80 250 50 300 Q20 350 50 400' fill='none' stroke='%2300CCFF' stroke-width='2'/%3E%3Cpath d='M50 0 Q20 50 50 100 Q80 150 50 200 Q20 250 50 300 Q80 350 50 400' fill='none' stroke='%23F5A623' stroke-width='2'/%3E%3C/svg%3E");
+            background-size: 100px 400px;
+            background-repeat: repeat-y;
+            animation: dnaScroll 20s linear infinite;
         }
-        
-        .hero-content {
-            max-width: 800px;
+
+        @keyframes dnaScroll {
+            from { background-position: 0 0; }
+            to { background-position: 0 400px; }
+        }
+
+        .hero-container {
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 8rem 2rem 4rem;
             position: relative;
             z-index: 1;
+            text-align: center;
         }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-        
-        .email-form {
-            display: flex;
-            gap: 10px;
-            max-width: 500px;
-            margin: 0 auto 20px;
-        }
-        
-        .email-input {
-            flex: 1;
-            padding: 18px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            outline: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .submit-btn {
-            padding: 18px 35px;
-            background: #1a1a2e;
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
             color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            white-space: nowrap;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
         }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+
+        .hero-content h1 span {
+            color: var(--cyan);
         }
-        
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        .message {
-            margin-top: 15px;
-            padding: 12px 20px;
-            border-radius: 30px;
-            display: none;
-            font-size: 0.95rem;
-        }
-        
-        .message.success {
-            background: rgba(255,255,255,0.25);
-            display: block;
-        }
-        
-        /* Sections */
-        section {
-            padding: 100px 40px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #1a1a2e;
-        }
-        
-        .section-subtitle {
-            font-size: 1.2rem;
-            text-align: center;
-            color: #666;
-            margin-bottom: 60px;
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
-        
-        /* What Section */
-        .what-section {
-            background: #f8f9fa;
-        }
-        
-        .what-content {
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
             max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            color: #444;
-            text-align: center;
-            line-height: 1.8;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
         }
-        
-        .highlight {
-            color: #667eea;
-            font-weight: 600;
+
+        .cta-primary {
+            display: inline-block;
+            background: var(--cyan);
+            color: var(--navy);
+            padding: 1.25rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0,204,255,0.3);
         }
-        
-        /* Who Section */
-        .personas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-        
-        .persona-card {
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,204,255,0.4);
             background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* ===== WHO USES SECTION ===== */
+        .who-uses {
+            background: var(--white);
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
             text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .persona-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
             transition: all 0.3s;
         }
-        
+
         .persona-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border-color: var(--cyan);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(10,37,64,0.1);
         }
-        
+
         .persona-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .persona-icon img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
-        
+
         .persona-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #1a1a2e;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
         }
-        
-        .persona-card p {
-            color: #666;
-            line-height: 1.6;
+
+        .persona-card .subtitle {
+            font-size: 1.1rem;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
         }
-        
-        /* Features Section */
-        .features-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .persona-card .description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
-        
-        .features-section .section-title,
-        .features-section .section-subtitle {
-            color: white;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-        
-        .feature {
-            text-align: center;
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            object-fit: contain;
-            opacity: 0.9;
-        }
-        
-        .feature h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+
+        .persona-card h4 {
+            color: var(--navy);
+            font-size: 1rem;
+            margin-bottom: 1rem;
             font-weight: 600;
         }
-        
-        .feature p {
-            opacity: 0.9;
+
+        .persona-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .persona-card ul li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
             line-height: 1.6;
         }
-        
-        /* CTA Section */
-        .cta-section {
-            background: #1a1a2e;
-            color: white;
+
+        .persona-card ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        .persona-card .tagline {
+            color: var(--moss);
+            font-style: italic;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            background: linear-gradient(165deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 60% 40% at 30% 30%, rgba(0,204,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 70% 70%, rgba(74,124,89,0.06) 0%, transparent 50%);
+        }
+
+        .how-it-works .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .how-it-works .section-header {
             text-align: center;
+            margin-bottom: 3rem;
         }
-        
-        .cta-section .section-title {
+
+        .how-it-works .section-label {
+            color: var(--cyan);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .how-it-works .section-header h2 {
+            font-size: 3rem;
             color: white;
+            margin-bottom: 1.5rem;
         }
-        
-        .cta-section .email-form {
-            margin: 40px auto 0;
+
+        .how-it-works .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
-        
-        /* Footer */
-        footer {
-            background: #0f0f1e;
-            color: white;
-            padding: 60px 40px 40px;
-            text-align: center;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
+
+        .maturity-stages {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
             margin: 0 auto;
         }
-        
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .footer-text {
-            color: #888;
-            margin-bottom: 30px;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-links a {
-            color: #888;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            color: #555;
-            font-size: 0.9rem;
-            padding-top: 30px;
-            border-top: 1px solid #222;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 140px 20px 80px;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .email-form {
-                flex-direction: column;
-            }
-            
-            section {
-                padding: 60px 20px;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .personas,
-            .features {
+
+        @media (max-width: 968px) {
+            .maturity-stages {
                 grid-template-columns: 1fr;
             }
-            
-            nav .container {
-                padding: 0 20px;
+        }
+
+        .stage-box {
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            text-align: left;
+            transition: all 0.3s;
+        }
+
+        .stage-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .stage-box.emerging {
+            border-color: var(--cyan);
+            background: rgba(0,204,255,0.08);
+        }
+
+        .stage-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stage-box h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+
+        .stage-box p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            background: white;
+            padding: 6rem 2rem;
+        }
+
+        .pricing-paths {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .pricing-path {
+            background: var(--cream);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pricing-path:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 8px 30px rgba(10,37,64,0.1);
+        }
+
+        .pricing-path h3 {
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-path .path-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .pricing-items {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-items li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(10,37,64,0.1);
+        }
+
+        .pricing-items li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-items .item-name {
+            font-weight: 600;
+            color: var(--navy);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-items .item-price {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        .path-cta {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 1rem 2rem;
+            background: var(--navy);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .path-cta:hover {
+            background: var(--cyan);
+            color: var(--navy);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,204,255,0.3);
+        }
+
+        .path-cta.secondary {
+            background: white;
+            color: var(--navy);
+            border: 2px solid var(--navy);
+        }
+
+        .path-cta.secondary:hover {
+            background: var(--navy);
+            color: white;
+        }
+
+        .consulting-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .consulting-features li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .consulting-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--moss);
+            font-weight: bold;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(0,204,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(74,124,89,0.1) 0%, transparent 50%);
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-container p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .cta-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .cta-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .cta-input:focus {
+            outline: none;
+            border-color: var(--cyan);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .cta-submit {
+            padding: 1rem 2.5rem;
+            background: var(--cyan);
+            color: var(--navy);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cta-submit:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+
+        .cta-note {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .form-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(16,185,129,0.2);
+            color: var(--emerging);
+            border: 2px solid var(--emerging);
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(239,68,68,0.2);
+            color: var(--crowded);
+            border: 2px solid var(--crowded);
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--navy);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .bioicus-credit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .bioicus-credit:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(4px);
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 2rem;
+        }
+
+        .footer-copyright {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-social a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .footer-social a:hover {
+            color: var(--cyan);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 968px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-paths {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-stages {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="logo">
-                <img src="public/images/icons/dna-logo.svg" alt="SeqTrend" width="50" height="50">
-                <span>SeqTrend</span>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="images/dna-logo.svg" alt="SeqTrend" class="logo-icon">
+                <span class="logo-text">SeqTrend</span>
+            </a>
+            <div class="nav-links">
+                <a href="#contact" class="nav-cta">Get Early Access</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Track Emerging Targets in Biopharma Research</h1>
-            <p class="subtitle">
-                Make better research and investment decisions. Identify promising protein and gene targets before they become mainstream.
-            </p>
-            
-            <form class="email-form" id="emailForm">
-                <input 
-                    type="email" 
-                    class="email-input" 
-                    id="emailInput"
-                    placeholder="Enter your email"
-                    required
-                >
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    I'm Interested
-                </button>
-            </form>
-            
-            <div class="message" id="message"></div>
-        </div>
-    </section>
-
-    <!-- What Section -->
-    <section class="what-section">
-        <div class="container">
-            <h2 class="section-title">What is SeqTrend?</h2>
-            <div class="what-content">
-                <p>
-                    SeqTrend aggregates and analyzes data from <span class="highlight">hundreds of scientific sources</span> — validated by expert opinion globally — to help you identify <span class="highlight">emerging protein and gene targets</span> with real potential.
+        <div class="dna-pattern"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Charting Life Science <span>Targets</span></h1>
+                <p class="hero-tagline">Know what to pursue before others do</p>
+                <p class="hero-description">
+                    SeqTrend maps gene & protein opportunities across research, commercialization, and investment, showing you where to focus when it matters so you lead instead of follow.
                 </p>
-                <br>
-                <p>
-                    Whether you're directing research, evaluating investments, or exploring new therapeutic areas, SeqTrend shows you <span class="highlight">what's gaining momentum</span> and what's already too crowded.
-                </p>
+                <a href="#contact" class="cta-primary">Get Early Access</a>
             </div>
         </div>
     </section>
 
-    <!-- Who Section -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Who is SeqTrend for?</h2>
-            <p class="section-subtitle">
-                Built for professionals who need to stay ahead in biotech innovation
-            </p>
-            
-            <div class="personas">
+    <!-- Who Uses SeqTrend -->
+    <section class="who-uses" id="who">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Intelligence Across the Life Science Ecosystem</h2>
+                <p>From target discovery to portfolio strategy to capital deployment, SeqTrend can help by providing the context you need.</p>
+            </div>
+
+            <div class="persona-grid">
+                <!-- Researchers -->
                 <div class="persona-card">
-                    <img src="public/images/icons/microscope.svg" alt="Researcher" class="persona-icon">
-                    <h3>Academic Researchers</h3>
-                    <p>
-                        PIs, postdocs, and senior researchers seeking new research directions, collaboration opportunities, and grant-worthy targets.
-                    </p>
+                    <div class="persona-icon">
+                        <img src="images/microscope.png" alt="Researchers">
+                    </div>
+                    <h3>Researchers</h3>
+                    <div class="subtitle">Data-driven context for R&D efforts</div>
+                    <ul>
+                        <li>Select targets strategically where emerging areas offer positioning opportunities</li>
+                        <li>Crowded spaces limit differentiation potential</li>
+                        <li>Understand where your work sits relative to current research activity</li>
+                    </ul>
                 </div>
-                
+
+                <!-- Life Science Professionals -->
                 <div class="persona-card">
-                    <img src="public/images/icons/scientist.svg" alt="Professional" class="persona-icon">
+                    <div class="persona-icon">
+                        <img src="images/scientist.png" alt="Life Science Professionals">
+                    </div>
                     <h3>Life Science Professionals</h3>
-                    <p>
-                        Scientists and R&D teams in biotech and pharma tracking target validation, competitive landscapes, and emerging modalities.
-                    </p>
+                    <div class="subtitle">Market Signals for Portfolio execution</div>
+                    <ul>
+                        <li>Benefit from momentum signals and activity patterns</li>
+                        <li>Understanding target trajectories helps inform positioning strategy</li>
+                        <li>Get systematic context for portfolio decisions across targets of interest</li>
+                    </ul>
                 </div>
-                
+
+                <!-- Investors & VCs -->
                 <div class="persona-card">
-                    <img src="public/images/icons/investor.svg" alt="Investor" class="persona-icon">
-                    <h3>Investors & Decision Makers</h3>
-                    <p>
-                        VCs, pharma executives, and BD teams evaluating investment opportunities and partnership targets in biopharma.
-                    </p>
+                    <div class="persona-icon">
+                        <img src="images/investor.png" alt="Investors & VCs">
+                    </div>
+                    <h3>Investors & VCs</h3>
+                    <div class="subtitle">Due Diligence Context for Investment Analysis</div>
+                    <ul>
+                        <li>Target validation and competitive context to inform risk assessment</li>
+                        <li>Balance early stage opportunities against saturated markets</li>
+                        <li>Understand research activity around targets under consideration</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="container">
-            <h2 class="section-title">Identify Emerging Targets, Avoid Saturated Areas</h2>
-            <p class="section-subtitle">
-                Multi-source analysis to show you what's gaining momentum and what's already too competitive
-            </p>
-            
-            <div class="features">
-                <div class="feature">
-                    <img src="public/images/icons/seedling.svg" alt="Detection" class="feature-icon">
-                    <h3>Early Detection</h3>
-                    <p>Identify targets in the "emerging" phase before they hit mainstream attention and valuations skyrocket.</p>
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">HOW IT WORKS</div>
+                <h2>Five Stages of Target Maturity</h2>
+                <p>
+                    SeqTrend aggregates signals from databases and industry intelligence to give you answers at the gene/protein level.
+                </p>
+            </div>
+
+            <div class="maturity-stages">
+                <div class="stage-box">
+                    <span class="stage-icon">🔍</span>
+                    <h4>Invisible</h4>
+                    <p>Academic only. Few citations, zero market interest. Pure research territory.</p>
                 </div>
-                
-                <div class="feature">
-                    <img src="public/images/icons/chart.svg" alt="Analysis" class="feature-icon">
-                    <h3>Multi-Source Analysis</h3>
-                    <p>Aggregate data from PubMed, clinical trials, patents, expert opinions, and biotech news in one place.</p>
+
+                <div class="stage-box emerging">
+                    <span class="stage-icon">🌱</span>
+                    <h4>Emerging</h4>
+                    <p>The sweet spot. Traffic climbing, citations accelerating. This is where pioneers make their bets.</p>
                 </div>
-                
-                <div class="feature">
-                    <img src="public/images/icons/target.svg" alt="Targets" class="feature-icon">
-                    <h3>Trend Maturity Stages</h3>
-                    <p>Know if a target is emerging (opportunity) or established (crowded) with our maturity classification system.</p>
+
+                <div class="stage-box">
+                    <span class="stage-icon">🔥</span>
+                    <h4>Hot</h4>
+                    <p>Everyone wants in. Rapid gains possible but window closing fast.</p>
                 </div>
-                
-                <div class="feature">
-                    <img src="public/images/icons/bell.svg" alt="Alerts" class="feature-icon">
-                    <h3>Smart Alerts</h3>
-                    <p>Get notified when specific proteins or genes show acceleration in research activity or clinical progress.</p>
+
+                <div class="stage-box">
+                    <span class="stage-icon">🚗</span>
+                    <h4>Crowded</h4>
+                    <p>Market saturation. Proven but competitive intensity is brutal.</p>
+                </div>
+
+                <div class="stage-box">
+                    <span class="stage-icon">💀</span>
+                    <h4>Obsolete</h4>
+                    <p>Interest fading. Time to move on unless salvaging niche value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Access Reports and Comprehensive Strategic Advisory</h2>
+            </div>
+
+            <div class="pricing-paths">
+                <!-- Path 1: SeqTrend Reports -->
+                <div class="pricing-path">
+                    <h3>📊 SeqTrend Reports</h3>
+                    <p class="path-description">
+                        Systematic target intelligence at the gene/protein level.
+                    </p>
+                    <ul class="consulting-features">
+                        <li>Maturity assessment</li>
+                        <li>Competitive positioning</li>
+                        <li>Activity pattern analysis</li>
+                    </ul>
+                    <a href="#contact" class="path-cta">Join Waitlist</a>
+                </div>
+
+                <!-- Path 2: Strategic Consulting -->
+                <div class="pricing-path">
+                    <h3>📈 Strategic Consulting</h3>
+                    <p class="path-description">
+                        Advisory for portfolio strategy and product management.
+                    </p>
+                    <ul class="consulting-features">
+                        <li>Single Target Analysis</li>
+                        <li>Area Landscape Reports</li>
+                        <li>Fractional Product Leadership</li>
+                    </ul>
+                    <a href="https://bioicus.com" class="path-cta secondary" target="_blank">Get Consulting on Bioicus Lab →</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="section-title">Be the First to Know</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">
-                Join researchers and investors who want early access to SeqTrend
+    <section class="cta-section" id="contact">
+        <div class="cta-container">
+            <h2>Be Among the First to Know</h2>
+            <p>
+                Join our early access list. Get notified when SeqTrend launches and help shape the platform with your feedback.
             </p>
-            
-            <form class="email-form" id="emailForm2">
-                <input 
-                    type="email" 
-                    class="email-input" 
-                    id="emailInput2"
-                    placeholder="Enter your email"
-                    required
-                >
-                <button type="submit" class="submit-btn" id="submitBtn2">
-                    I'm Interested
-                </button>
+            <form class="cta-form" id="emailForm">
+                <input type="email" class="cta-input" placeholder="Enter your work email" required>
+                <button type="submit" class="cta-submit">Join Early Access</button>
             </form>
-            
-            <div class="message" id="message2"></div>
+            <p class="cta-note">No spam. Updates only when we have something meaningful to share.</p>
+            <div class="form-message" id="formMessage"></div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="public/images/icons/dna-logo.svg" alt="SeqTrend" width="50" height="50">
-                <span>SeqTrend</span>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/dna-logo.svg" alt="SeqTrend" style="width: 32px; height: 32px;">
+                        <span>SeqTrend</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Radar for biotech targets. Identify emerging opportunities before markets become crowded.
+                    </p>
+                    <a href="https://bioicus.com" class="bioicus-credit" target="_blank">
+                        <span>Powered by Bioicus Lab</span>
+                        <span>→</span>
+                    </a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://www.linkedin.com/company/bioicus" target="_blank">LinkedIn</a>
+                    <span style="color: rgba(255,255,255,0.7); display: block; padding: 0.5rem 0;">antonio [at] seqtrend.com</span>
+                </div>
             </div>
-            <p class="footer-text">
-                Intelligence platform for breakthrough target discovery
-            </p>
-            <div class="footer-links">
-                <a href="mailto:hello@seqtrend.com">Contact</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Privacy</a>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 SeqTrend™. A Bioicus Lab Project - All rights reserved.</p>
             </div>
-            <p class="copyright">
-                © 2024 SeqTrend. All rights reserved.
-            </p>
         </div>
     </footer>
 
     <script>
+        // Form submission with Google Apps Script
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxpBzubf6vS-W-K6mhvK0KsuY8CYTePZz8IH5R7EnsYYNhleVwiFk3WaPCA_8KVq5XW/exec';
-        
-        const forms = [
-            { form: document.getElementById('emailForm'), input: document.getElementById('emailInput'), btn: document.getElementById('submitBtn'), msg: document.getElementById('message') },
-            { form: document.getElementById('emailForm2'), input: document.getElementById('emailInput2'), btn: document.getElementById('submitBtn2'), msg: document.getElementById('message2') }
-        ];
-        
-        forms.forEach(({ form, input, btn, msg }) => {
-            form.addEventListener('submit', async (e) => {
+        const form = document.getElementById('emailForm');
+        const input = form.querySelector('input[type="email"]');
+        const btn = form.querySelector('button[type="submit"]');
+        const msg = document.getElementById('formMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = input.value;
+            const originalBtnText = btn.textContent;
+            
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+            msg.style.display = 'none';
+            
+            try {
+                const formData = new FormData();
+                formData.append('email', email);
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Show success message
+                msg.textContent = '✓ Thanks! We\'ll notify you when SeqTrend launches.';
+                msg.className = 'form-message success';
+                input.value = '';
+                
+            } catch (error) {
+                // Show error message
+                msg.textContent = '✗ Something went wrong. Please try again.';
+                msg.className = 'form-message error';
+            } finally {
+                // Re-enable button
+                btn.disabled = false;
+                btn.textContent = originalBtnText;
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                const email = input.value;
-                btn.disabled = true;
-                btn.textContent = 'Submitting...';
-                
-                try {
-                    const formData = new FormData();
-                    formData.append('email', email);
-                    
-                    await fetch(scriptURL, {
-                        method: 'POST',
-                        body: formData
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                    
-                    msg.textContent = '✅ Thanks! We\'ll notify you when we launch.';
-                    msg.className = 'message success';
-                    input.value = '';
-                    
-                } catch (error) {
-                    msg.textContent = '❌ Something went wrong. Please try again.';
-                    msg.className = 'message error';
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'I\'m Interested';
                 }
             });
         });
